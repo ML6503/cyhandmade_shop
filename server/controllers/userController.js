@@ -1,14 +1,15 @@
 class UserController {
-    async registration(res, req) {
+    async registration(req, res) {
 
     }
 
-    async login(res, req) {
+    async login(req, res) {
 
     }
 
-    async check(res, req) {
-
+    async check(req, res) {
+        const { id } = req.query;
+        res.json(id);
     }
 }
 
