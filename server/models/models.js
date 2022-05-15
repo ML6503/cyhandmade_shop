@@ -1,6 +1,5 @@
 const sequelize = require('../db');
 const { DataTypes } = require('sequelize');
-const { model } = require('../db');
 
 const User = sequelize.define('user', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -66,7 +65,7 @@ BasketDevice.belongsTo(Device);
 Device.hasMany(Rating);
 Rating.belongsTo(Device);
 
-Device.hasMany(DeviceInfo);
+Device.hasMany(DeviceInfo, { as: 'info' });
 DeviceInfo.belongsTo(Device);
 
 Type.hasMany(Device);
