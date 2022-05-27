@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const ApiError = require('../error/ApiError');
 
 module.exports = (req, res, next) => {
     if ( req.method === 'OPTIONS') {
@@ -8,7 +9,7 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
 
         if(!token) {
-            return res.status(401).json({ messsage: 'Not authorized.' });
+            return next(ApiError.unauthorizedError());
         }
 
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -16,6 +17,6 @@ module.exports = (req, res, next) => {
         next();
 
     } catch (e) {
-        res.status(401).json({ messsage: 'Not authorized.' });
+        return next(ApiError.unauthorizedError());
     }
 };
