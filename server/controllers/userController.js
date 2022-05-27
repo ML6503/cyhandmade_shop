@@ -1,7 +1,8 @@
-const ApiError = require('../error/ApiError');
+const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User, Basket } = require('../models/models');
+const ApiError = require('../error/ApiError');
 
 const generateJWT = (id, email, role) => jwt.sign(
     { id, email, role },
@@ -11,10 +12,12 @@ const generateJWT = (id, email, role) => jwt.sign(
 
 class UserController {
     async registration(req, res, next) {
-        const { email, password, role } = req.body;
-        if(!email || ! password) {
-            return next(ApiError.badRequest('Password or email is not correct.'))
+       try {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            return next(ApiError.badRequest('Validation error.', errors.array()))
         }
+        const { email, password, role } = req.body;
         const candidate = await User.findOne({ where: { email } });
         if (candidate) {
             return next(ApiError.badRequest('User with such email already exists.'));
@@ -25,6 +28,10 @@ class UserController {
         const basket = await Basket.create({ userId: user.id });
         const token = generateJWT(user.id, user.email, user.role); 
         return res.json({ token });
+
+       } catch (e) {
+           next(e);
+       }
     }
 
     async login(req, res, next) {
