@@ -18,7 +18,9 @@ class UserController {
             return next(ApiError.badRequest('Validation error.', errors.array()))
         }
         const { email, password, role } = req.body;
+
         const candidate = await User.findOne({ where: { email } });
+        
         if (candidate) {
             return next(ApiError.badRequest('User with such email already exists.'));
         }
