@@ -3,9 +3,15 @@ const { DataTypes } = require('sequelize');
 
 const User = sequelize.define('user', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    email: { type: DataTypes.STRING, unique: true },
-    password: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true, require: true },
+    password: { type: DataTypes.STRING, require: true },
     role: { type: DataTypes.STRING, defaultValue: 'USER' },
+    isActivated: { type: DataTypes. BOOLEAN, defaultValue: false },
+    activationLink: { type: DataTypes.STRING}
+});
+
+const Token = sequelize.define('token', {
+    refreshToken: { type: DataTypes.STRING, require: true },
 });
 
 const Basket = sequelize.define('basket', {
@@ -49,6 +55,8 @@ const TypeBrand = sequelize.define('type_brand', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }
 });
 
+User.hasOne(Token);
+Token.belongsTo(User);
 
 User.hasOne(Basket);
 Basket.belongsTo(User);
@@ -79,6 +87,7 @@ Brand.belongsToMany(Type, { through: TypeBrand });
 
 module.exports = {
     User,
+    Token,
     Basket,
     BasketDevice,
     Device,

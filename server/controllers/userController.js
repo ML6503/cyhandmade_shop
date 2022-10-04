@@ -20,7 +20,7 @@ class UserController {
         const { email, password, role } = req.body;
 
         const candidate = await User.findOne({ where: { email } });
-        
+
         if (candidate) {
             return next(ApiError.badRequest('User with such email already exists.'));
         }
@@ -37,6 +37,7 @@ class UserController {
     }
 
     async login(req, res, next) {
+       try {
         const { email, password } = req.body;
         if(!email || !password) {
             return next(ApiError.badRequest('No user id or password'));
@@ -52,15 +53,65 @@ class UserController {
         const token = generateJWT(user.id, user.email, user.role);
 
         return res.json({ token });
+       } catch (e) {
+           console.log(e);
+       }
     }
 
-    async check(req, res, next) {
-        const { id } = req.query;
-        if(!id) {
-            return next(ApiError.badRequest('No user id'));
+    async logout(req, eres, next) {
+        try {
+
+        } catch(e) {
+            console.log(e);
         }
+    }
+
+    async activate(req, eres, next) {
+        try {
+            
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    async refresh(req, eres, next) {
+        try {
+            
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    // async check(req, res, next) {
+    //     try {
+    //         const { id } = req.query;
+    //     if(!id) {
+
+    //         return next(ApiError.badRequest('No user id'));
+    //     }
         
-        res.json({ id });
+    //         return res.json({ id });
+
+    //     } catch (e) {
+    //         return next(ApiError.internal('Server error'));
+    //     }
+    // }
+
+    async getUsers(_req, res, next) {
+        try {
+            const users = await User.findAll();
+
+        if(!users) {
+            return next(ApiError.internal('No users exists.'));
+        }
+
+        return res.json({ users });
+
+        } catch (e) {
+            return next(ApiError.internal('Server error'));
+        }
+
+
     }
 }
 
