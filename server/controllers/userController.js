@@ -58,7 +58,7 @@ class UserController {
        }
     }
 
-    async logout(req, eres, next) {
+    async logout(req, res, next) {
         try {
 
         } catch(e) {
@@ -66,7 +66,7 @@ class UserController {
         }
     }
 
-    async activate(req, eres, next) {
+    async activate(req, res, next) {
         try {
             
         } catch(e) {
