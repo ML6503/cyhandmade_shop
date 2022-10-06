@@ -3,6 +3,8 @@
 
 /build
 
-/client/.env.local
+/client/.env
+
+/server/.env
 
 /server/node_modules
