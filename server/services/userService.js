@@ -9,11 +9,10 @@ const UserDto = require('../dtos/userDto');
 
 class UserService {
   async registration(email, password, role) {
-    console.log('REGISTRATION', email, password, role);
     const candidate = await User.findOne({ where: { email: email } });
 
     if (candidate) {
-      return next(ApiError.badRequest('User with such email already exists.'));
+      throw ApiError.badRequest('User with such email already exists.');
     }
 
     const hashedPassword = await bcrypt.hash(password, +process.env.SALT);
@@ -21,7 +20,10 @@ class UserService {
     const activationLink = uuid.v4();
 
     const user = await User.create({ email, role, password: hashedPassword, activationLink });
-    await mailService.sendActivationMail(email, activationLink);
+    await mailService.sendActivationMail(
+      email,
+      `${process.env.API_URL}/api/user/activate/${activationLink}`
+    );
 
     const basket = await Basket.create({ userId: user.id });
 
@@ -34,48 +36,38 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
-  async login(req, res, next) {
-    try {
-      const { email, password } = req.body;
-      if (!email || !password) {
-        return next(ApiError.badRequest('No user id or password'));
-      }
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-        return next(ApiError.internal('No such user exists.'));
-      }
-      let comparePassword = bcrypt.compareSync(password, user.password);
-      if (!comparePassword) {
-        return next(ApiError.internal('Password is incorrect. Try again.'));
-      }
-      const token = generateJWT(user.id, user.email, user.role);
-
-      return res.json({ token });
-    } catch (e) {
-      console.log(e);
+  async login(email, password) {
+    if (!email || !password) {
+      throw new ApiError.badRequest('No user id or password');
     }
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      throw new ApiError.internal('No such user exists.');
+    }
+    let comparePassword = bcrypt.compareSync(password, user.password);
+    if (!comparePassword) {
+      throw new ApiError.internal('Password is incorrect. Try again.');
+    }
+    // const token = generateJWT(user.id, user.email, user.role);
+
+    // return res.json({ token });
+    const userDto = new UserDto(user);
+
+    return { user: userDto };
   }
 
-  async logout(req, res, next) {
-    try {
-    } catch (e) {
-      console.log(e);
+  async logout() {}
+
+  async activate(activationLink) {
+    const user = await User.findOne({ where: { activationLink } });
+    if (!user) {
+      throw ApiError.internal('No such link exists.');
     }
+    user.isActivated = true;
+    await user.save();
   }
 
-  async activate(req, res, next) {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  async refresh(req, eres, next) {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  async refresh() {}
 
   // async check(req, res, next) {
   //     try {
@@ -92,18 +84,14 @@ class UserService {
   //     }
   // }
 
-  async getUsers(_req, res, next) {
-    try {
-      const users = await User.findAll();
+  async getUsers() {
+    const users = await User.findAll();
 
-      if (!users) {
-        return next(ApiError.internal('No users exists.'));
-      }
-
-      return res.json({ users });
-    } catch (e) {
-      return next(ApiError.internal('Server error'));
+    if (!users) {
+      return ApiError.internal('No users exists.');
     }
+
+    return users;
   }
 }
 

@@ -52,21 +52,25 @@ class UserController {
   async logout(req, res, next) {
     try {
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
 
   async activate(req, res, next) {
     try {
+      const activationLink = req.params.link;
+      await userService.activate(activationLink);
+
+      return res.redirect(process.env.CLENT_URL);
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
 
-  async refresh(req, eres, next) {
+  async refresh(req, res, next) {
     try {
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
 
