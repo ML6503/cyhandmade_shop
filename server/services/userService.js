@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
-const { User, Basket } = require('../models/models');
+const { User, Basket, Token } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const mailService = require('./mailService');
 const tokenService = require('./tokenService');
@@ -42,26 +42,34 @@ class UserService {
     }
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      throw new ApiError.internal('No such user exists.');
+      throw ApiError.internal('Password or email is incorrect. Try again.');
     }
     let comparePassword = bcrypt.compareSync(password, user.password);
     if (!comparePassword) {
-      throw new ApiError.internal('Password is incorrect. Try again.');
+      throw ApiError.internal('Password or email is incorrect. Try again.');
     }
-    // const token = generateJWT(user.id, user.email, user.role);
-
-    // return res.json({ token });
     const userDto = new UserDto(user);
 
-    return { user: userDto };
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
   }
 
-  async logout() {}
+  async logout(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.badRequest('No user token');
+    }
+    const token = await tokenService.removeToken(refreshToken);
+
+    return token;
+  }
 
   async activate(activationLink) {
     const user = await User.findOne({ where: { activationLink } });
     if (!user) {
-      throw ApiError.internal('No such link exists.');
+      throw ApiError.badRequest('No such link exists.');
     }
     user.isActivated = true;
     await user.save();
