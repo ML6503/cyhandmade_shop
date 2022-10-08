@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 
-// const ApiError = require('../error/ApiError');
+const ApiError = require('../error/ApiError');
 
 const userService = require('../services/userService');
 const tokenService = require('../services/tokenService');
@@ -18,7 +18,7 @@ class UserController {
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: tokenService.refreshTokenDays * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: true,
+        // secure: true,
       });
 
       return res.json(userData);
@@ -30,27 +30,31 @@ class UserController {
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
-      if (!email || !password) {
-        return next(ApiError.badRequest('No user id or password'));
-      }
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-        return next(ApiError.internal('No such user exists.'));
-      }
-      let comparePassword = bcrypt.compareSync(password, user.password);
-      if (!comparePassword) {
-        return next(ApiError.internal('Password is incorrect. Try again.'));
-      }
-      const token = generateJWT(user.id, user.email, user.role);
 
-      return res.json({ token });
+      const userData = await userService.login(email, password);
+
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: tokenService.refreshTokenDays * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        // secure: true,
+      });
+
+      return res.json(userData);
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
 
   async logout(req, res, next) {
     try {
+      const { refreshToken } = req.cookies;
+      console.log('refreshToken', req.cookies);
+      const token = await userService.logout(refreshToken);
+
+      console.log('token', token);
+
+      res.clearCookie('refreshToken');
+      res.json(token);
     } catch (e) {
       next(e);
     }
@@ -91,15 +95,11 @@ class UserController {
 
   async getUsers(_req, res, next) {
     try {
-      const users = await User.findAll();
-
-      if (!users) {
-        return next(ApiError.internal('No users exists.'));
-      }
+      const users = await userService.getUsers();
 
       return res.json({ users });
     } catch (e) {
-      return next(ApiError.internal('Server error'));
+      return next(e);
     }
   }
 }

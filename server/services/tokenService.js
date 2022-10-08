@@ -19,12 +19,13 @@ class TokenService {
     };
   }
 
-  async saveToken(userId, refreshToken) {
-    const tokenData = await Token.findAll({ where: { userId } });
-    if (tokenData.length >= this.maximumTokensLength) {
-      Token.destroy();
+  async deleteUnrequiredTokens(userId) {
+    // check if  tokens morew than maximum alowed - delete them
+    const allTokens = await Token.findAll({ where: { userId } });
+    if (allTokens.length >= this.maximumTokensLength) {
+      await Token.destroy({ where: { userId } });
     }
-
+    //  check old tokens and delete them
     const thirtyDaysBackFromNow = new Date(
       new Date().setDate(new Date().getDate() - this.refreshTokenDays)
     );
@@ -34,9 +35,23 @@ class TokenService {
         createdAt: { [Op.gt]: thirtyDaysBackFromNow },
       },
     });
+  }
+
+  async saveToken(userId, refreshToken) {
+    await this.deleteUnrequiredTokens(userId);
+
+    const tokenData = await Token.findOne({ where: { userId } });
+    if (tokenData) {
+      tokenData.refreshToken = refreshToken;
+    }
 
     const token = await Token.create({ userId, refreshToken });
     return token;
+  }
+
+  async removeToken(refreshToken) {
+    const tokenData = await Token.destroy({ where: { refreshToken } });
+    return tokenData;
   }
 }
 
