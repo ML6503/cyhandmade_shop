@@ -6,6 +6,7 @@ const ApiError = require('../error/ApiError');
 const mailService = require('./mailService');
 const tokenService = require('./tokenService');
 const UserDto = require('../dtos/userDto');
+const { generateTokens } = require('./tokenService');
 
 class UserService {
   async registration(email, password, role) {
@@ -36,9 +37,19 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
+  async getTokensAndUserData(user) {
+    const userDto = new UserDto(user);
+
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
+  }
+
   async login(email, password) {
     if (!email || !password) {
-      throw new ApiError.badRequest('No user id or password');
+      throw ApiError.badRequest('No user id or password');
     }
     const user = await User.findOne({ where: { email } });
     if (!user) {
@@ -48,13 +59,10 @@ class UserService {
     if (!comparePassword) {
       throw ApiError.internal('Password or email is incorrect. Try again.');
     }
-    const userDto = new UserDto(user);
 
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const tokensAndUserData = await this.getTokensAndUserData(user);
 
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    return tokensAndUserData;
   }
 
   async logout(refreshToken) {
@@ -75,7 +83,27 @@ class UserService {
     await user.save();
   }
 
-  async refresh() {}
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.unauthorizedError();
+    }
+
+    const userData = tokenService.validateRefreshToken(refreshToken);
+    const tokenFromDb = tokenService.findToken(refreshToken);
+
+    if (!userData || !tokenFromDb) {
+      throw ApiError.unauthorizedError();
+    }
+
+    const user = await User.findByPk(userData.id);
+    if (!user) {
+      throw ApiError.internal('No User in DB with id: ', userData.userId);
+    }
+
+    const tokensAndUserData = await this.getTokensAndUserData(user);
+
+    return tokensAndUserData;
+  }
 
   // async check(req, res, next) {
   //     try {
@@ -95,11 +123,11 @@ class UserService {
   async getUsers() {
     const users = await User.findAll();
 
-    if (!users) {
-      return ApiError.internal('No users exists.');
-    }
+    // if (!users) {
+    //   return ApiError.internal('No users exists.');
+    // }
 
-    return users;
+    return users.map((u) => new UserDto(u));
   }
 }
 
