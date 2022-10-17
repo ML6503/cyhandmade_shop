@@ -1,14 +1,23 @@
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
-const { User, Basket, Token } = require('../models/models');
+const { User, Basket } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const mailService = require('./mailService');
 const tokenService = require('./tokenService');
 const UserDto = require('../dtos/userDto');
-const { generateTokens } = require('./tokenService');
 
 class UserService {
+  async getTokensAndUserData(user) {
+    const userDto = new UserDto(user);
+
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
+  }
+
   async registration(email, password, role) {
     const candidate = await User.findOne({ where: { email: email } });
 
@@ -26,25 +35,19 @@ class UserService {
       `${process.env.API_URL}/api/user/activate/${activationLink}`
     );
 
-    const basket = await Basket.create({ userId: user.id });
+    await Basket.create({ userId: user.id });
 
-    const userDto = new UserDto(user);
+    // const userDto = new UserDto(user);
 
-    const tokens = tokenService.generateTokens({ ...userDto });
+    // const tokens = tokenService.generateTokens({ ...userDto });
 
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    // await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-    return { ...tokens, user: userDto };
-  }
+    // return { ...tokens, user: userDto };
 
-  async getTokensAndUserData(user) {
-    const userDto = new UserDto(user);
+    const tokensAndUserData = await this.getTokensAndUserData(user);
 
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
+    return tokensAndUserData;
   }
 
   async login(email, password) {

@@ -1,7 +1,6 @@
 const { validationResult } = require('express-validator');
 
 const ApiError = require('../error/ApiError');
-
 const userService = require('../services/userService');
 const tokenService = require('../services/tokenService');
 
