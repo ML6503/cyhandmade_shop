@@ -21,10 +21,6 @@ module.exports = (req, _res, next) => {
 
     const userData = tokenService.validateAccessToken(accessToken);
 
-    if (!userData) {
-      return next(ApiError.unauthorizedError());
-    }
-
     req.user = userData;
     next();
   } catch (e) {

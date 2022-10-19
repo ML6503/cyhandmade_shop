@@ -1,16 +1,15 @@
 const uuid = require('uuid');
 const path = require('path');
-const { Device, DeviceInfo } = require('../models/models');
 const ApiError = require('../error/ApiError');
-const deviceService = require('../services/deviceService');
+const itemService = require('../services/itemService');
 
-class DeviceController {
+class ItemController {
   ONE_PAGE = 1;
   DEFAULT_LIMIT = 8;
 
   async create(req, res, next) {
     try {
-      let { name, price, brandId, typeId, info } = req.body;
+      let { name, price, typeId, info } = req.body;
       const { img } = req.files;
       //   let fileName = uuid.v4() + '.jpg';
       //   img.mv(path.resolve(__dirname, '..', 'static', fileName));
@@ -26,8 +25,8 @@ class DeviceController {
       //       })
       //     );
       //   }
-      const device = await deviceService.create(name, price, brandId, typeId, info, img);
-      return res.json(device);
+      const item = await itemService.create(name, price, typeId, info, img);
+      return res.json(item);
     } catch (err) {
       next(ApiError.badRequest(err.message));
     }
@@ -35,7 +34,7 @@ class DeviceController {
 
   async getAll(req, res, next) {
     try {
-      let { typeId, brandId, limit, page } = req.query;
+      let { typeId, limit, page } = req.query;
       page = page || this.ONE_PAGE;
       limit = limit || this.DEFAULT_LIMIT;
       let offset = page * limit - limit;
@@ -55,9 +54,9 @@ class DeviceController {
       //     devices = await Device.findAndCountAll({ where: { brandId, typeId }, limit, offset });
       //   }
 
-      const devices = await deviceService.findAll(typeId, brandId, limit, offset);
+      const items = await itemService.findAll(typeId, limit, offset);
 
-      return res.json(devices);
+      return res.json(items);
     } catch (err) {
       next(ApiError.badRequest(err.message));
     }
@@ -67,16 +66,16 @@ class DeviceController {
     try {
       const { id } = req.params;
 
-      const device = await deviceService.findOne(id);
-      //   const device = await Device.findOne({
+      const item = await itemService.findOne(id);
+      //   const item = await Item.findOne({
       //     where: { id },
-      //     include: [{ model: DeviceInfo, as: 'info' }],
+      //     include: [{ model: ItemInfo, as: 'info' }],
       //   });
-      return res.json(device);
+      return res.json(item);
     } catch (err) {
       next(ApiError.badRequest(err.message));
     }
   }
 }
 
-module.exports = new DeviceController();
+module.exports = new ItemController();
