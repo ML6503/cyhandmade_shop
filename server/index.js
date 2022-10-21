@@ -5,7 +5,6 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 require('dotenv').config();
 const sequelize = require('./db');
-const models = require('./models/models');
 const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 
@@ -33,3 +32,5 @@ const start = async () => {
 };
 
 start();
+
+module.exports = app;

@@ -126,10 +126,6 @@ class UserService {
   async getUsers() {
     const users = await User.findAll();
 
-    // if (!users) {
-    //   return ApiError.internal('No users exists.');
-    // }
-
     return users.map((u) => new UserDto(u));
   }
 }

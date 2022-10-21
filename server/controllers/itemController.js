@@ -62,7 +62,7 @@ class ItemController {
     }
   }
 
-  async getOne(req, res) {
+  async getOne(req, res, next) {
     try {
       const { id } = req.params;
 
@@ -73,6 +73,17 @@ class ItemController {
       //   });
       return res.json(item);
     } catch (err) {
+      next(ApiError.badRequest(err.message));
+    }
+  }
+
+  async deleteOne(req, res, next) {
+    try {
+      const { id } = req.params;
+      await itemService.deleteOne(id);
+
+      return res.sendStatus(200);
+    } catch (e) {
       next(ApiError.badRequest(err.message));
     }
   }

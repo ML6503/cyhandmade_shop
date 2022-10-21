@@ -4,7 +4,8 @@
   "description": "cy handmade online shop server",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest ----detectOpenHandles"
   },
   "keywords": [
     "js",
@@ -30,7 +31,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "jest": "^29.2.1",
     "nodemon": "^2.0.16",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "supertest": "^6.3.0"
   }
 }

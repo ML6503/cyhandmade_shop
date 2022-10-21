@@ -54,6 +54,23 @@ class ItemService {
 
     return item;
   }
+
+  async deleteOne(id) {
+    const item = Item.findOne({
+      where: { id },
+      include: [{ model: ItemInfo, as: this.INFO }],
+    });
+
+    if (!item) {
+      throw ApiError.badRequest('No item with such id');
+    }
+
+    const countDeleted = await Item.destroy({
+      where: { id },
+    });
+
+    return countDeleted;
+  }
 }
 
 module.exports = new ItemService();

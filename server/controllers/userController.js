@@ -37,7 +37,7 @@ class UserController {
         httpOnly: true,
         // secure: true,
       });
-
+      console.log('Cookie from LOGIN! ', res.cookie);
       return res.json(userData);
     } catch (e) {
       next(e);
