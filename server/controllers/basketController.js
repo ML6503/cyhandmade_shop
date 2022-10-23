@@ -1,22 +1,29 @@
-const { Basket, BasketDevice } = require('../models/models');
+const { v4: uuidv4 } = require('uuid');
+const { Basket, BasketDevice, User } = require('../models/models');
 const ApiError = require('../error/ApiError');
 
 class BasketController {
-  DEVICE = 'device';
-
   async create(req, res, next) {
-    const { userId } = req.body;
-    if (!userId) {
-      return next(ApiError.badRequest('No user id provided'));
+    try {
+      let { userId } = req.body;
+      if (!userId) {
+        return next(ApiError.badRequest('No user id provided'));
+      }
+
+      res.cookie('userId', userData.refreshToken, {
+        maxAge: tokenService.refreshTokenDays * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        // secure: true,
+      });
+      const basket = await Basket.create({
+        userId,
+      });
+
+      await BasketDevice.create({ basketId: basket.id });
+      return res.json(basket);
+    } catch (e) {
+      next(e.message);
     }
-
-    const basket = await Basket.create({
-      userId,
-      //   include: [{ model: BasketDevice, as: this.DEVICE }],
-    });
-
-    await BasketDevice.create({ basketId: basket.id });
-    return res.json(basket);
   }
 
   async getBasket(req, res, next) {

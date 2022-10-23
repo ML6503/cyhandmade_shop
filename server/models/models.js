@@ -2,7 +2,7 @@ const sequelize = require('../db');
 const { DataTypes } = require('sequelize');
 
 const User = sequelize.define('user', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   email: { type: DataTypes.STRING, unique: true, require: true },
   password: { type: DataTypes.STRING, require: true },
   role: { type: DataTypes.STRING, defaultValue: 'USER' },
@@ -15,15 +15,15 @@ const Token = sequelize.define('token', {
 });
 
 const Basket = sequelize.define('basket', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
 });
 
 const BasketItem = sequelize.define('basket_item', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
 });
 
 const Item = sequelize.define('item', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   price: { type: DataTypes.INTEGER, allowNull: false },
   //   rating: { type: DataTypes.INTEGER, defaultValue: 0 },
@@ -31,7 +31,7 @@ const Item = sequelize.define('item', {
 });
 
 const Type = sequelize.define('type', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
@@ -46,7 +46,7 @@ const Type = sequelize.define('type', {
 // });
 
 const ItemInfo = sequelize.define('item_info', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   title: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, allowNull: false },
 });

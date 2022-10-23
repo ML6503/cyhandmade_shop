@@ -4,11 +4,8 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 require('dotenv').config();
-const sequelize = require('./db');
 const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
-
-const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cookieParser());
@@ -20,17 +17,5 @@ app.use('/api', router);
 
 // Error handler should be last middleware
 app.use(errorHandler);
-
-const start = async () => {
-  try {
-    await sequelize.authenticate();
-    await sequelize.sync();
-    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-start();
 
 module.exports = app;

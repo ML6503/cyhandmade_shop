@@ -1,35 +1,24 @@
 const request = require('supertest');
-
 const app = require('../index');
+const loginUser = require('./utils');
 
-const loginUser = async (userData) => {
-  return () => {
-    request
-      .post('/api/user/login')
-      .send({
-        email: 'test@test.com',
-        password: 'test',
-      })
-      .expect(200)
-      .then((res) => {
-        userData = res.body;
-        res.cookie('refreshToken', userData.refreshToken);
-      });
-  };
-};
+// let userData = {};
 
-let userData = {};
+// let token;
 
-let token;
-
-beforeEach(async () => {
-  await loginUser(userData);
-  token = userData.accessToken;
-});
+// beforeAll(async () => {
+//   await loginUser(userData);
+//   token = userData.accessToken;
+// });
 
 describe('GET /api/user/users', () => {
   it('GET /users returns array of users with authorization by accessToken', async () => {
-    // const token = userData.accessToken;
+    const loginResponse = await request(app).post('/api/user/login').send({
+      email: 'test@test.com',
+      password: 'test',
+    });
+    const userData = loginResponse.body;
+    const token = userData.accessToken;
 
     const response = await request(app).get('/api/user/users').auth(token, { type: 'bearer' });
 
