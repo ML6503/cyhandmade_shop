@@ -10,6 +10,16 @@ const User = sequelize.define('user', {
   activationLink: { type: DataTypes.STRING },
 });
 
+const UserAddress = sequelize.define('user_address', {
+    id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+    line1: { type: DataTypes.STRING },
+    line2: { type: DataTypes.STRING },
+    city: { type: DataTypes.STRING},
+    country: { type: DataTypes.STRING },
+    code: { type: DataTypes.INTEGER },
+    phone: { type: DataTypes.INTEGER },
+  });
+
 const Token = sequelize.define('token', {
   refreshToken: { type: DataTypes.STRING, require: true },
 });
@@ -35,15 +45,13 @@ const Type = sequelize.define('type', {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-// const Brand = sequelize.define('brand', {
-//   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-//   name: { type: DataTypes.STRING, unique: true, allowNull: false },
-// });
+const Order = sequelize.define('order', {
+  id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+});
 
-// const Rating = sequelize.define('rating', {
-//   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-//   rate: { type: DataTypes.INTEGER, defaultValue: 0 },
-// });
+const OrderItem = sequelize.define('order_item', {
+    id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+});
 
 const ItemInfo = sequelize.define('item_info', {
   id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
@@ -51,9 +59,6 @@ const ItemInfo = sequelize.define('item_info', {
   description: { type: DataTypes.STRING, allowNull: false },
 });
 
-// const TypeBrand = sequelize.define('type_brand', {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-// });
 
 User.hasOne(Token);
 Token.belongsTo(User);
@@ -61,8 +66,11 @@ Token.belongsTo(User);
 User.hasOne(Basket);
 Basket.belongsTo(User);
 
-// User.hasMany(Rating);
-// Rating.belongsTo(User);
+User.hasOne(UserAddress);
+UserAddress.belongsTo(User);
+
+User.hasMany(Order);
+Order.belongsTo(User);
 
 Basket.hasMany(BasketItem);
 BasketItem.belongsTo(Basket);
@@ -70,8 +78,11 @@ BasketItem.belongsTo(Basket);
 Item.hasMany(BasketItem);
 BasketItem.belongsTo(Item);
 
-// Item.hasMany(Rating);
-// Rating.belongsTo(Item);
+Order.hasMany(OrderItem);
+OrderItem.belongsTo(Order);
+
+Item.hasMany(OrderItem);
+OrderItem.belongsTo(Item);
 
 Item.hasMany(ItemInfo, { as: 'info' });
 ItemInfo.belongsTo(Item);
@@ -79,11 +90,6 @@ ItemInfo.belongsTo(Item);
 Type.hasMany(Item);
 Item.belongsTo(Type);
 
-// Brand.hasMany(Device);
-// Device.belongsTo(Brand);
-
-// Type.belongsToMany(Brand, { through: TypeBrand });
-// Brand.belongsToMany(Type, { through: TypeBrand });
 
 module.exports = {
   User,
@@ -93,7 +99,6 @@ module.exports = {
   Item,
   ItemInfo,
   Type,
-  //   Brand,
-  //   Rating,
-  //   TypeBrand,
+  Order,
+  OrderItem
 };
