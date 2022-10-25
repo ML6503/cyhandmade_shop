@@ -6,8 +6,12 @@ const ApiError = require('../error/ApiError');
 class ItemService {
   INFO = 'info';
 
-  async create(name, price, typeId, info, img) {
-    let fileName = uuid.v4() + '.jpg';
+  async create(name, price, typeId, info, img, imgUrl) {
+    let fileName;
+    if (imgUrl) {
+      fileName = imgUrl;
+    }
+    fileName = uuid.v4() + '.jpg';
     img.mv(path.resolve(__dirname, '..', 'static', fileName));
     const item = await Item.create({ name, price, typeId, img: fileName });
 

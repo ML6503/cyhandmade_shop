@@ -9,8 +9,10 @@ class ItemController {
 
   async create(req, res, next) {
     try {
-      let { name, price, typeId, info } = req.body;
-      const { img } = req.files;
+      let { name, price, typeId, info, imgUrl } = req.body;
+      if (!imgUrl) {
+        const { img } = req.files;
+      }
       //   let fileName = uuid.v4() + '.jpg';
       //   img.mv(path.resolve(__dirname, '..', 'static', fileName));
       //   const device = await Device.create({ name, price, typeId, brandId, img: fileName });
@@ -25,7 +27,7 @@ class ItemController {
       //       })
       //     );
       //   }
-      const item = await itemService.create(name, price, typeId, info, img);
+      const item = await itemService.create(name, price, typeId, info, img, imgUrl);
       return res.json(item);
     } catch (err) {
       next(ApiError.badRequest(err.message));
