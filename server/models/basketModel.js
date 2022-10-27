@@ -2,9 +2,9 @@ module.exports = class BasketModel {
  
 
     constructor(oldBasket) {
-        this.items = oldBasket.items;
-        this.totalQty = oldBasket.totalQty;
-        this.totalPrice = oldBasket.totalPrice;
+        this.items = oldBasket.items || {};
+        this.totalQty = oldBasket.totalQty || 0;
+        this.totalPrice = oldBasket.totalPrice || 0;
     }
     
     add(item, id) {
@@ -15,7 +15,7 @@ module.exports = class BasketModel {
             storedItem.qty ++;
             storedItem.price = storedItem.item.price * storedItem.qty;
             this.totalQty ++;
-            this.totalPrice += storedItem.price
+            this.totalPrice += storedItem.item.price;
     }
 
     generateArray() {
