@@ -4,11 +4,11 @@ const itemService = require('./itemService');
 
 class BasketService {
 
-    async add(itemId) {
-        const basket = new BasketModel(req.session.basket ? req.session.basket : {});
+    async updateBasket(itemId) {
+        const basket = new BasketModel(req.session.basket ? req.session.basket : { items: {} });
 
         const item = await itemService.findOne(itemId);
-        basket.updateBasket(item, item.id);
+        basket.add(item, item.id);
         return basket;
     }
 }
