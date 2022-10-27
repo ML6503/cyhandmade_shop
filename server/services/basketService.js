@@ -1,0 +1,16 @@
+const BasketModel = require('../models/basketModel');
+const itemService = require('./itemService');
+
+
+class BasketService {
+
+    async add(itemId) {
+        const basket = new BasketModel(req.session.basket ? req.session.basket : {});
+
+        const item = await itemService.findOne(itemId);
+        basket.updateBasket(item, item.id);
+        return basket;
+    }
+}
+
+module.exports = new BasketService();

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
-const { Token } = require('../models/models');
+const { Token } = require('../models/modelsDb');
 
 class TokenService {
   refreshTokenDays = 30;

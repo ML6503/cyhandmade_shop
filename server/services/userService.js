@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
-const { User, Basket } = require('../models/models');
+const { User, Basket } = require('../models/modelsDb');
 const ApiError = require('../error/ApiError');
 const mailService = require('./mailService');
 const tokenService = require('./tokenService');

@@ -1,6 +1,6 @@
 const uuid = require('uuid');
 const path = require('path');
-const { Item, ItemInfo } = require('../models/models');
+const { Item, ItemInfo } = require('../models/modelsDb');
 const ApiError = require('../error/ApiError');
 
 class ItemService {
