@@ -6,9 +6,11 @@ class BasketService {
     const basket = new BasketModel(sessionBasket);
 
     const item = await itemService.findOne(itemId);
+    // const item = { id: 1, descr: 'new item', price: 10 };
     if (item) {
       basket.add(item, item.id);
     }
+
     return basket;
   }
 }

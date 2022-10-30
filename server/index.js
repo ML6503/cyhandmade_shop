@@ -11,7 +11,7 @@ require('dotenv').config();
 const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 
-const { REDIS_ENDPOINT_URI, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
+const { REDIS_USER, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB_NUMBER } = process.env;
 
 const app = express();
 app.use(cookieParser());
@@ -19,18 +19,27 @@ app.use(cors());
 app.use(express.json());
 let client;
 (async () => {
-  const redisEndpointUri = REDIS_ENDPOINT_URI
-    ? REDIS_ENDPOINT_URI.replace(/^(redis\:\/\/)/, '')
-    : `${REDIS_HOST}:${REDIS_PORT}`;
+  // const redisEndpointUri = REDIS_ENDPOINT_URI
+  //   ? REDIS_ENDPOINT_URI.replace(/^(redis\:\/\/)/, '')
+  //   : `${REDIS_HOST}:${REDIS_PORT}`;
 
-  client = createClient(`redis://${redisEndpointUri}`, {
-    password: REDIS_PASSWORD,
-    legacyMode: true,
-  });
+  // client = createClient(`redis://${redisEndpointUri}`, {
+  //   password: REDIS_PASSWORD,
+  //   legacyMode: true,
+  // });
 
+  client = createClient(
+    // `redis://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB_NUMBER}`,
+
+    {
+      // url: `redis://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}`,
+      legacyMode: true,
+    }
+  );
   // client = createClient({
   //   url: 'redis://redis:6379',
   //   password: REDIS_PASSWORD,
+  //   legacyMode: true,
   // });
 
   client.on('error', function (err) {
@@ -38,12 +47,12 @@ let client;
     process.exit(0);
   });
 
-  await client.connect(() => console.log('REDIS is connected!!'));
-
+  await client.connect().catch(console.error);
+  console.log('REDIS is connected!!');
   // await client.set('basket', JSON.stringify({ basketId: 123, products: [] }));
-  await client.del('basket');
-  const value = await client.get('basket');
-  console.log(value);
+  // await client.del('basket');
+  // const value = await client.get('basket');
+  // console.log(value);
 })();
 
 app.use(
@@ -61,12 +70,13 @@ app.use(
   })
 );
 
-// app.use((req, _res, next) => {
-//   if (!req.session) {
-//     return next(ApiError.internal('No session connection'));
-//   }
-//   next();
-// });
+app.use((req, _res, next) => {
+  if (!req.session) {
+    return next(ApiError.internal('No session connection'));
+  }
+  next();
+});
+
 // app.use((req, res, next) => {
 //   res.locals.session = req.session;
 //   next();

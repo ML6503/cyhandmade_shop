@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 
-module.exports = class BasketModel {
+class BasketModel {
   constructor(oldBasket) {
     this.basketId = oldBasket.basketId || uuidv4();
     this.items = oldBasket.items || {};
@@ -28,4 +28,6 @@ module.exports = class BasketModel {
 
     return arr;
   }
-};
+}
+
+module.exports = BasketModel;

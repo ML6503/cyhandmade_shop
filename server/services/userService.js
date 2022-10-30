@@ -35,8 +35,6 @@ class UserService {
       `${process.env.API_URL}/api/user/activate/${activationLink}`
     );
 
-    await Basket.create({ userId: user.id });
-
     // const userDto = new UserDto(user);
 
     // const tokens = tokenService.generateTokens({ ...userDto });

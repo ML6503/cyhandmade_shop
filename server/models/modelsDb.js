@@ -21,7 +21,7 @@ const UserAddress = sequelize.define('user_address', {
 });
 
 const Token = sequelize.define('token', {
-  refreshToken: { type: DataTypes.STRING, require: true },
+  refreshToken: { type: DataTypes.STRING(1000), require: true },
 });
 
 // const Basket = sequelize.define('basket', {
