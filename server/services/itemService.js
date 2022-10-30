@@ -56,6 +56,9 @@ class ItemService {
       include: [{ model: ItemInfo, as: this.INFO }],
     });
 
+    if (!item) {
+      throw ApiError.badRequest('No item with such id:' + id);
+    }
     return item;
   }
 

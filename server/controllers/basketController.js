@@ -28,15 +28,19 @@ class BasketController {
   }
 
   async getBasket(req, res, next) {
-    const { userId } = req.body;
-    if (!userId) {
-      return next(ApiError.badRequest('No user id provided'));
+    // const { userId } = req.body;
+    // if (!userId) {
+    //   return next(ApiError.badRequest('No user id provided'));
+    // }
+    // const basket = await Basket.findOne({
+    //   where: { userId },
+    //   //   include: [{ model: BasketItem, as: 'item' }],
+    // });
+    // return res.json(basket);
+    try {
+    } catch (e) {
+      next(e);
     }
-    const basket = await Basket.findOne({
-      where: { userId },
-      //   include: [{ model: BasketItem, as: 'item' }],
-    });
-    return res.json(basket);
   }
 
   // async clearBasket(req, res, next) {
@@ -53,12 +57,12 @@ class BasketController {
   async addToBasket(req, _res, next) {
     try {
       const { itemId } = req.params;
-      const updatedBasket = await basketService.updateBasket(itemId);
+      const sessionBasket = sessionBasket ? sessionBasket : {};
+      const updatedBasket = await basketService.addToBasket(itemId, sessionBasket);
       req.session.basket = updatedBasket;
-      console.log('Session cart: ', req.session.basket);
-
-    } catch(e) {
-      next(e)
+      console.log('!!!Session cart!!!: ', req.session.basket);
+    } catch (e) {
+      next(e);
     }
   }
 }
