@@ -1,3 +1,4 @@
+const ApiError = require('../error/ApiError');
 const basketService = require('../services/basketService');
 
 class BasketController {
@@ -42,9 +43,32 @@ class BasketController {
   async addToBasket(req, res, next) {
     try {
       const { itemId } = req.params;
-
+      if (!itemId) {
+        return next(ApiError.badRequest('No item id provided'));
+      }
       const sessionBasket = req.session.basket ? req.session.basket : {};
       const updatedBasket = await basketService.addToBasket(itemId, sessionBasket);
+      req.session.basket = updatedBasket;
+
+      return res.json(updatedBasket);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async removeFromBasket(req, res, next) {
+    try {
+      const { itemId } = req.params;
+      if (!itemId) {
+        return next(ApiError.badRequest('No item id provided'));
+      }
+      const sessionBasket = req.session.basket;
+      if(!sessionBasket) {
+        return next(ApiError.badRequest('No basket in session'));
+        
+      }
+      const updatedBasket = await basketService.removeFromBasket(itemId);
+      
       req.session.basket = updatedBasket;
 
       return res.json(updatedBasket);

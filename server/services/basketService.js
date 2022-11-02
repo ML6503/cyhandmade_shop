@@ -13,6 +13,13 @@ class BasketService {
 
     return basket;
   }
+
+  async removeFromBasket(itemId, sessionBasket) {
+    const basket = new BasketModel(sessionBasket);
+    basket.remove(itemId);
+    
+    return basket;
+  }
 }
 
 module.exports = new BasketService();

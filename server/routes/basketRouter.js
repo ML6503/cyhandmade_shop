@@ -5,6 +5,8 @@ const router = new Router();
 
 router.get('/', basketController.getBasket);
 
-router.post('/add-to-basket/:itemId', basketController.addToBasket);
+router.post('/add/:itemId', basketController.addToBasket);
+
+router.delete('/remove/:itemId', basketController.removeFromBasket);
 
 module.exports = router;

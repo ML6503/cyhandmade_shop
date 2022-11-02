@@ -19,6 +19,14 @@ class BasketModel {
     this.totalPrice += storedItem.item.price;
   }
 
+  remove(id) {
+    let storedItem = this.items[id];
+    storedItem.qty--;
+    storedItem.price = storedItem.item.price * storedItem.qty;
+    this.totalQty--;
+    this.totalPrice -= storedItem.item.price;
+  }
+
   generateArray() {
     let arr = [];
 
