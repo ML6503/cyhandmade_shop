@@ -1,0 +1,52 @@
+version: '3'
+services:
+  api:
+    build: .
+    command: sh -c "npx sequelize-cli db:migrate && npm install && npm run run-dev"
+    container_name: cyshop-api-dev
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: cyhandmade_shop
+      DB_HOST: db || '127.0.0.1'
+      DB_PORT: 5432
+      DB_TEST_HOST: db-test || '127.0.0.1'
+    ports:
+      - 5000:5000
+    volumes:
+      - ../server:/usr/src/app/server
+      - /node_modules
+    working_dir: /usr/src/app
+    restart: on-failure
+    depends_on:
+      - db
+      - db-test
+      - redis
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cyhandmade_shop
+      - POSTGRES_PASSWORD=password
+      # - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  db-test:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cyhandmade_shop
+      - POSTGRES_PASSWORD=password
+      # - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - pg_data_test:/var/lib/postgresql/data
+    ports:
+      - 5430:5432
+  redis:
+    image: 'redis:alpine'
+
+volumes:
+  pg_data:
+  pg_data_test:
