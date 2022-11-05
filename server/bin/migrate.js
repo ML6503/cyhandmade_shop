@@ -1,2 +1,2 @@
-const db = require('../db');
-db.sequelize.sync();
+const sequelize = require('../db');
+sequelize.sync();

@@ -6,16 +6,18 @@ const dbHost =
     : process.env.DB_HOST;
 
 module.exports = new Sequelize(
-  process.env.DB_NAME,
+  //   process.env.DB_NAME,
+  process.env.DB_SCHEMA || 'postgres',
   process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  process.env.DB_PASSWORD || '',
   {
+    host: 'localhost',
+    port: process.env.DB_PORT,
     dialect: 'postgres',
     dialectOptions: {
       ssl: process.env.DB_SSL === 'true',
     },
-    host: dbHost || 'localhost',
-    port: process.env.DB_PORT,
-    logging: false,
+
+    // logging: false,
   }
 );
