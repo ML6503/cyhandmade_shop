@@ -8,7 +8,9 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
-    server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+    server = app.listen(PORT, '0.0.0.0', () =>
+      console.log(`Server started on port ${PORT}`)
+    );
     server.on('connection', (connection) => {
       connections.push(connection);
       connection.on(

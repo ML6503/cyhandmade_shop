@@ -8,7 +8,11 @@
     "test": "SET NODE_ENV=test & jest ----detectOpenHandles --forceExit --runInBand",
     "pm2": "pm2 start processes.json --no-daemon",
     "start": "node server.js",
-    "migrate": "node ./bin/migrate.js"
+    "migrate": "node ./bin/migrate.js",
+    "docker:up": "docker compose up -d",
+    "docker:stop": "docker compose stop",
+    "docker:down": "docker compose down -v && docker compose down --rmi all && docker compose rm -f",
+    "docker:restart": "docker compose start"
   },
   "keywords": [
     "js",

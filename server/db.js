@@ -11,12 +11,12 @@ module.exports = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASSWORD || '',
   {
-    host: 'localhost',
+    host: dbHost || 'localhost',
     port: process.env.DB_PORT,
     dialect: 'postgres',
-    dialectOptions: {
-      ssl: process.env.DB_SSL === 'true',
-    },
+    // dialectOptions: {
+    //   ssl: process.env.DB_SSL === 'true',
+    // },
 
     // logging: false,
   }

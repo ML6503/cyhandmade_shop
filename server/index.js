@@ -11,7 +11,8 @@ require('dotenv').config();
 const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 
-const { REDIS_USER, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB_NUMBER } = process.env;
+const { REDIS_USER, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB_NUMBER } =
+  process.env;
 
 const app = express();
 app.use(cookieParser());
@@ -34,6 +35,11 @@ let client;
     {
       // url: `redis://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}`,
       legacyMode: true,
+      socket: {
+        port: REDIS_PORT,
+        // host: REDIS_HOST,
+        host: REDIS_HOST || 'redis-server',
+      },
     }
   );
   // client = createClient({
@@ -58,7 +64,8 @@ let client;
 app.use(
   session({
     store: new RedisStore({
-      host: REDIS_HOST,
+      // host: REDIS_HOST,
+      host: REDIS_HOST || 'redis-server',
       port: REDIS_PORT,
       client: client,
       ttl: 10800,
