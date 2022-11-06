@@ -10,8 +10,8 @@
     "start": "node server.js",
     "migrate": "node ./bin/migrate.js",
     "docker:up": "docker compose up -d",
-    "docker:stop": "docker compose stop",
-    "docker:down": "docker compose down -v && docker compose down --rmi all && docker compose rm -f",
+    "docker:stop": "docker stop $(docker ps -q)",
+    "docker:down": "docker compose down -v && docker rmi $(docker images -q) && docker rm $(docker ps -a -q) -f",
     "docker:restart": "docker compose start"
   },
   "keywords": [
