@@ -7,8 +7,6 @@ describe('GET /api/basket', () => {
     const response = await request(app).get('/api/basket');
 
     await expect(response.status).toEqual(200);
-    await expect(response.body).toEqual({}
-      
-    );
+    await expect(response.body).toEqual({});
   });
 });
