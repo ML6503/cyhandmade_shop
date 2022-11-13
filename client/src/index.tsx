@@ -13,5 +13,5 @@ if (container) {
          </BrowserRouter>,
     );
 } else {
-    console.log('Not found #app');
+    console.log('Not found app');
 }

@@ -23,6 +23,7 @@
       "dom"
     ]
   },
+  "declarationMap": true,
   "files": ["src/index.tsx", "module.d.ts"],
   "include": [".src/**/*.ts", ".src/**/*.tsx"],
   "exclude": ["./node_modules/"]
