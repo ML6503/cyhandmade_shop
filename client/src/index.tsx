@@ -14,4 +14,4 @@ if (container) {
     );
 } else {
     console.log('Not found app');
-}
+};

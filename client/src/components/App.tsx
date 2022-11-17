@@ -1,9 +1,11 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import NavBar from './Navbar';
+import SharedLayer from './SharedLayer';
 import MainPage  from './main';
 import Account from './account';
 import Cart from './cart';
+
 
 export const App = () => {
 
@@ -14,12 +16,12 @@ export const App = () => {
             element: <MainPage/>
         },
         {
-            path: '/account',
+            path: 'account',
             exact: true,
             element: <Account/>
         },
         {
-            path: '/cart',
+            path: 'cart',
             exact: true,
             element: <Cart/>
         },
@@ -27,10 +29,14 @@ export const App = () => {
 
 return (
     <main>
-       
-        <NavBar />
-        <MainPage />
-   
+        <Routes>
+            <Route path='/' element={<SharedLayer />}>
+            
+                {    
+                    routes.map((r) => <Route path={r.path} element={r.element}/>)
+                }
+            </Route>
+        </Routes>
     </main>
 );
 };
