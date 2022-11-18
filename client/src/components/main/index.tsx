@@ -5,7 +5,7 @@ import Slider from './Slider';
 const MainPage = () => {
 
     return (
-        <section>
+        <section data-testid='main-page'>
             <Slider />
             <Shop />
         </section>

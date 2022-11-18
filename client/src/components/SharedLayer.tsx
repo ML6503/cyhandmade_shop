@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 const SharedLayer= () => {
 
     return (
-        <div>
+        <div data-testid='shared-layer'>
             <Navbar/>
                 <Outlet/>
              <section>

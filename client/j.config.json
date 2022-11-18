@@ -2,12 +2,12 @@
 
     "roots": ["<rootDir>/src"],
   
-     "preset": "ts-jest",
-
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
+     "jest": {
+      "transform": {
+        "^.+\\.tsx?$": "ts-jest"
+      },
+      "preset": "ts-jest"
     },
-  
     
     "setupFilesAfterEnv": [
 
