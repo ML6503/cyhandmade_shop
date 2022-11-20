@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { App } from '../components/App';
+import { App } from '../pages/App';
 
 
 test('App loads and has main page and shared layer components', async () => {
