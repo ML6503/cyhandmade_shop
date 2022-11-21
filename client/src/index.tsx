@@ -1,17 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './pages/App';
-import { BrowserRouter } from 'react-router-dom';
+import { App } from 'pages/App';
 
 const container = document.getElementById('app');
 
 if (container) {
-    const root = createRoot(container);
-    root.render(
-        <BrowserRouter>
-            <App  />
-         </BrowserRouter>,
-    );
+  const root = createRoot(container);
+  root.render(<App />);
 } else {
-    console.log('App not found');
-};
+  console.log('App not found');
+}

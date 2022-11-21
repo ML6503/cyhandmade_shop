@@ -1,42 +1,16 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import SharedLayer from './SharedLayer';
-import MainPage  from './main';
-import Account from './account';
-import Cart from './cart';
+import AppRouter from '../components/AppRouter';
 
 
-export const App = () => {
 
-    const routes = [
-        {
-            path: '/',
-            exact: true,
-            element: <MainPage/>
-        },
-        {
-            path: 'account',
-            exact: true,
-            element: <Account/>
-        },
-        {
-            path: 'cart',
-            exact: true,
-            element: <Cart/>
-        },
-    ];
+export const App: FC = () => {
+
 
 return (
-    <main>
-        <Routes>
-            <Route path='/' element={<SharedLayer />}>
-            
-                {    
-                    routes.map((r) => <Route path={r.path} element={r.element}/>)
-                }
-            </Route>
-        </Routes>
-    </main>
+   <BrowserRouter>
+        <AppRouter />
+    </BrowserRouter>
 );
 };
