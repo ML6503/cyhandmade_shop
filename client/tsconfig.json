@@ -26,6 +26,6 @@
   },
   "declarationMap": true,
   "files": ["src/index.tsx", "module.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/__tests__/routes.test.js"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules/"]
 }

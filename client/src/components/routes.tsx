@@ -16,11 +16,7 @@ export const publicRoutes: IRoute[] = [
     exact: true,
     element: <MainPage />,
   },
-  {
-    path: ACCOUNT_ROUTE,
-    exact: true,
-    element: <Account />,
-  },
+
   {
     path: CART_ROUTE,
     exact: true,
@@ -33,5 +29,10 @@ export const authRoutes: IRoute[] = [
     path: ADMIN_ROUTE,
     exact: true,
     element: <Admin />,
+  },
+  {
+    path: ACCOUNT_ROUTE,
+    exact: true,
+    element: <Account />,
   },
 ];

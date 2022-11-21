@@ -8,7 +8,7 @@ const AppRouter: FC = (): IRoute['element'] => {
     <Routes>
       <Route key="sharedLayer" path="/" element={<SharedLayer />}>
         {publicRoutes.map((r) => (
-          <Route path={r.path} element={r.element} />
+          <Route key={r.path} path={r.path} element={r.element} />
         ))}
       </Route>
     </Routes>
