@@ -1,8 +1,17 @@
 import Account from 'pages/account';
 import Admin from 'pages/Admin';
+import Auth from 'pages/Auth';
 import Cart from 'pages/cart';
 import MainPage from 'pages/main';
-import { ACCOUNT_ROUTE, ADMIN_ROUTE, CART_ROUTE, MAIN_ROUTE } from 'utils/constants';
+import {
+  ACCOUNT_ROUTE,
+  ADMIN_ROUTE,
+  CART_ROUTE,
+  LOGIN_ROUTE,
+  MAIN_ROUTE,
+  PRODUCT_ROUTE,
+  REGISTRATION_ROUTE,
+} from 'utils/constants';
 
 export interface IRoute {
   path: string;
@@ -18,9 +27,24 @@ export const publicRoutes: IRoute[] = [
   },
 
   {
+    path: PRODUCT_ROUTE + '/:id',
+    exact: true,
+    element: <Cart />,
+  },
+  {
     path: CART_ROUTE,
     exact: true,
     element: <Cart />,
+  },
+  {
+    path: LOGIN_ROUTE,
+    exact: true,
+    element: <Auth />,
+  },
+  {
+    path: REGISTRATION_ROUTE,
+    exact: true,
+    element: <Auth />,
   },
 ];
 
