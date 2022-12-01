@@ -18,7 +18,7 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
-  async registration(email, password, role) {
+  async registration(email, password, name, role) {
     const candidate = await User.findOne({ where: { email: email } });
 
     if (candidate) {
@@ -29,7 +29,7 @@ class UserService {
 
     const activationLink = uuid.v4();
 
-    const user = await User.create({ email, role, password: hashedPassword, activationLink });
+    const user = await User.create({ email, name, role, password: hashedPassword, activationLink });
     await mailService.sendActivationMail(
       email,
       `${process.env.API_URL}/api/user/activate/${activationLink}`

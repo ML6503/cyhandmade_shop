@@ -9,6 +9,7 @@ interface IUser {
 export default class UserStore {
   _isAuth: boolean;
   _user: {} | IUser;
+
   constructor() {
     this._isAuth = false;
     this._user = {};

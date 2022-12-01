@@ -4,6 +4,7 @@ const { DataTypes } = require('sequelize');
 const User = sequelize.define('user', {
   id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
   email: { type: DataTypes.STRING, unique: true },
+  name: { type: DataTypes.STRING },
   password: { type: DataTypes.STRING },
   role: { type: DataTypes.STRING, defaultValue: 'USER' },
   isActivated: { type: DataTypes.BOOLEAN, defaultValue: false },

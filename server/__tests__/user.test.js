@@ -16,6 +16,7 @@ describe('GET /api/user/users', () => {
     const loginResponse = await request(app).post('/api/user/login').send({
       email: 'test@test.com',
       password: 'test',
+      name: 'test user',
     });
     const userData = loginResponse.body;
     const token = userData.accessToken;
@@ -28,6 +29,7 @@ describe('GET /api/user/users', () => {
         expect.objectContaining({
           id: expect.any(Number),
           email: expect.any(String),
+          name: expect.any(String),
           isActivated: expect.any(Boolean),
           role: expect.any(String),
         }),
@@ -50,6 +52,7 @@ describe('POST /api/user/login', () => {
         .send({
           email: 'test@test.com',
           password: 'test',
+          name: 'test user',
         })
         .expect(200)
         .then((response) => {

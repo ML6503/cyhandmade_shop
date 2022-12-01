@@ -3,10 +3,11 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import SharedLayer from 'pages/SharedLayer';
 import { authRoutes, IRoute, publicRoutes } from 'components/routes';
 import { MAIN_ROUTE } from 'utils/constants';
-import { shopContext } from 'index';
+import { ShopContext } from 'index';
 
 const AppRouter: FC = (): IRoute['element'] => {
-  const appContext = useContext(shopContext);
+  const appContext = useContext(ShopContext);
+
   // const isAuth = true;
   console.log('USER contexct', appContext);
   const allRoutes = publicRoutes.concat(authRoutes);
