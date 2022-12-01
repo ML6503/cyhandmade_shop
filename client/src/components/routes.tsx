@@ -3,6 +3,7 @@ import Admin from 'pages/Admin';
 import Auth from 'pages/Auth';
 import Cart from 'pages/cart';
 import MainPage from 'pages/main';
+import Product from 'pages/product';
 import {
   ACCOUNT_ROUTE,
   ADMIN_ROUTE,
@@ -10,7 +11,9 @@ import {
   LOGIN_ROUTE,
   MAIN_ROUTE,
   PRODUCT_ROUTE,
+  PRODUCTS_ROUTE,
   REGISTRATION_ROUTE,
+  CONTACT_ROUTE,
 } from 'utils/constants';
 
 export interface IRoute {
@@ -25,11 +28,21 @@ export const publicRoutes: IRoute[] = [
     exact: true,
     element: <MainPage />,
   },
+  {
+    path: CONTACT_ROUTE,
+    exact: true,
+    element: <MainPage />,
+  },
+  {
+    path: PRODUCTS_ROUTE,
+    exact: true,
+    element: <MainPage />,
+  },
 
   {
     path: PRODUCT_ROUTE + '/:id',
     exact: true,
-    element: <Cart />,
+    element: <Product />,
   },
   {
     path: CART_ROUTE,

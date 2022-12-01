@@ -5,3 +5,5 @@ export const CART_ROUTE = 'cart';
 export const PRODUCT_ROUTE = 'product';
 export const LOGIN_ROUTE = 'login';
 export const REGISTRATION_ROUTE = 'registraion';
+export const PRODUCTS_ROUTE = 'products';
+export const CONTACT_ROUTE = 'contact';
