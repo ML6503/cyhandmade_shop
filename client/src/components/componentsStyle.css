@@ -1,0 +1,24 @@
+:root {
+  --nav-size: 55px;
+}
+.active-nav {
+  color: white;
+}
+
+.nav-span {
+  background-color: #b57f0c;
+}
+
+.left-brush-wrapper {
+  width: var(--nav-size);
+  max-width: var(--nav-size);
+  height: calc(var(--nav-size) * 0.9);
+  max-height: calc(var(--nav-size) * 0.9);
+  margin-left: auto;
+}
+
+.paint-drip-wrapper {
+  /* width: 100px; */
+  position: absolute;
+  right: 0;
+}

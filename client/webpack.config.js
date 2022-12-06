@@ -12,6 +12,8 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
+    clean: true,
+    assetModuleFilename: './images/[name][ext][query]',
   },
   devtool: 'source-map',
   devServer: {
@@ -41,8 +43,14 @@ const config = {
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
+        resourceQuery: /url/, // *.svg?url
       },
-
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+        use: ['@svgr/webpack'],
+      },
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],

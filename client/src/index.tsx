@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from 'pages/App';
 import UserStore from 'store/UserStore';
 import ItemStore from 'store/ItemStore';
+import './pages/style.css';
 
 interface IShopContext {
   user: UserStore;

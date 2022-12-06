@@ -8,8 +8,6 @@ import { ShopContext } from 'index';
 const AppRouter: FC = (): IRoute['element'] => {
   const appContext = useContext(ShopContext);
 
-  // const isAuth = true;
-  console.log('USER contexct', appContext);
   const allRoutes = publicRoutes.concat(authRoutes);
   const routes = appContext?.user.isAuth ? allRoutes : publicRoutes;
 
