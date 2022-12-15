@@ -1,4 +1,6 @@
-export const ButtomPaint = () => {
+import React from 'react';
+
+export const ButtomPaint: React.FC = () => {
   return (
     <svg
       id="svg"

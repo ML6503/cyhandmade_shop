@@ -1,4 +1,6 @@
-export const PaintDrip = () => {
+import { FC } from 'react';
+
+export const PaintDrip: FC = () => {
   return (
     <svg
       id="svg"

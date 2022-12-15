@@ -16,7 +16,7 @@ interface ILink {
   icon?: JSX.Element;
 }
 
-const NavBar = observer(() => {
+const NavBar: React.FC = observer(() => {
   let location = useLocation();
   const appContext = useContext(ShopContext);
 
