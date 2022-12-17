@@ -49,5 +49,6 @@
     "start": "webpack serve --mode=development --open --hot"
   },
   "author": "ML",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }

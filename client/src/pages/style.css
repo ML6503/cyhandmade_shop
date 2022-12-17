@@ -18,3 +18,8 @@ body {
   font-family: var(--shop-font);
   font-weight: bold;
 }
+
+body,
+html {
+  height: 100%;
+}

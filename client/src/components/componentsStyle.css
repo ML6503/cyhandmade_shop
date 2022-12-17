@@ -15,10 +15,21 @@
   height: calc(var(--nav-size) * 0.9);
   max-height: calc(var(--nav-size) * 0.9);
   margin-left: auto;
+  z-index: 10;
 }
 
 .paint-drip-wrapper {
   /* width: 100px; */
   position: absolute;
   right: 0;
+  z-index: 10;
+}
+
+.buttom-brush-wrapper {
+  z-index: 10;
+  position: relative;
+}
+
+.img-fluid {
+  z-index: 10;
 }

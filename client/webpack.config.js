@@ -14,6 +14,8 @@ const config = {
     publicPath: '/',
     clean: true,
     assetModuleFilename: './images/[name][ext][query]',
+    // assetModuleFilename: './public/images/[name][ext][query]',
+    chunkFilename: '[name].chunk.js',
   },
   devtool: 'source-map',
   devServer: {
@@ -42,6 +44,10 @@ const config = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: './public/images/[name].[ext]',
+        },
         type: 'asset',
         resourceQuery: /url/, // *.svg?url
       },
