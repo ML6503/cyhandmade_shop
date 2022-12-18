@@ -39,3 +39,11 @@
   -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 40% 100%);
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 40% 100%);
 }
+
+.welcome-txt {
+  color: var(--shop-highlight-color);
+
+  font-size: 20px;
+  font-weight: 700;
+  text-align: right;
+}
