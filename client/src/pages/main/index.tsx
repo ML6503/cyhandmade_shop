@@ -3,13 +3,13 @@ import Shop from './Shop';
 import Slider from './Slider';
 
 const MainPage = () => {
+  return (
+    <section data-testid="main-page">
+      <Slider />
 
-    return (
-        <section data-testid='main-page'>
-            <Slider />
-            <Shop />
-        </section>
-    );
+      <Shop />
+    </section>
+  );
 };
 
 export default MainPage;

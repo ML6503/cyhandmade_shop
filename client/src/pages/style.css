@@ -8,13 +8,14 @@
 
 :root {
   /* --back-text-color: black; */
-  --background-color: grey;
+  --shop-background-color: grey;
+  --shop-sign-color: #f2eecb;
   --shop-font: 'Anek Malayalam', sans-serif;
   --size: 10vw;
 }
 
-body {
-  background-color: var(--background-color);
+.body {
+  background-color: var(--shop-background-color);
   font-family: var(--shop-font);
   font-weight: bold;
 }
