@@ -14,7 +14,7 @@ yarn build
 
 to bundle your application
 
-# storage
+# photo storage
 
 https://lensdump.com/mlml
 

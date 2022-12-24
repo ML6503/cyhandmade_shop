@@ -1,8 +1,13 @@
 :root {
   --nav-size: 55px;
 }
+
 .active-nav {
   color: white;
+}
+
+.nav-item :hover {
+  color: var(--shop-highlight-color);
 }
 
 .nav-span {
