@@ -71,14 +71,13 @@ const NavBar: React.FC = observer(() => {
   let links = publicLinks.concat(additionalLinks);
 
   return (
-    <div className="mr-auto d-flex justify-content-between">
+    <div className="mr-auto d-flex justify-content-between sticky-top">
       <img src="./images/icon_13.png" className="img-fluid" />
 
-      <span className="left-brush-wrapper ml-auto">
-        <LeftBrush />
-      </span>
+      <LeftBrush />
+
       <div>
-        <Navbar className="justify-content-end nav-span pt-3" variant="dark" sticky="top">
+        <Navbar className="justify-content-end nav-span pt-3" variant="dark">
           {links.map((link) => (
             <Nav.Item className="pe-3">
               <Nav.Link
