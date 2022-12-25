@@ -1,35 +1,38 @@
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import { ShopContext } from 'index';
+import { observer } from 'mobx-react-lite';
+import React, { Dispatch, FC, SetStateAction, useContext } from 'react';
+
 interface CategoriesProps {
-  name: string;
-  items: string[];
   setCategoryName: Dispatch<SetStateAction<string>>;
 }
 
-const Categories: FC<CategoriesProps> = ({ name, items, setCategoryName }) => {
-  const initialState = name === 'categories' ? 1 : 2;
-  const [activeIndex, setActiveIndex] = useState<number | null>(initialState);
+const Categories: FC<CategoriesProps> = observer(({ setCategoryName }) => {
+  const appContext = useContext(ShopContext);
+  const items = appContext!.items;
 
-  const addActiveCategory = (e: React.MouseEvent, i: number, cat: string) => {
+  const addActiveCategory = (e: React.MouseEvent, catName: string) => {
     e.preventDefault();
 
-    setActiveIndex(i);
-    setCategoryName(cat);
+    setCategoryName(catName);
   };
 
   return (
     <ul className="pb-4 categories-filter list-unstyled">
-      <h6 className="text-uppercase fw-bold">{name}</h6>
-      {items.map((cat, i) => (
-        <li
-          key={i}
-          className={activeIndex === i ? 'lh-sm m-0 cat-active' : 'lh-sm m-0'}
-          onClick={(e) => addActiveCategory(e, i, cat)}
-        >
-          {cat}
-        </li>
-      ))}
+      <h6 className="text-uppercase fw-bold">categories</h6>
+      {items.types.map((cat) => {
+        const catName: string = cat.name;
+        return (
+          <li
+            key={cat.id}
+            className={cat.id === items.selectedType.id ? 'lh-sm m-0 cat-active' : 'lh-sm m-0'}
+            onClick={(e) => addActiveCategory(e, catName)}
+          >
+            {catName}
+          </li>
+        );
+      })}
     </ul>
   );
-};
+});
 
 export default Categories;
