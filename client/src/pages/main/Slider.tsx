@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import './mainStyles.css';
 import RectangleSign from './RectangleSign';
@@ -12,7 +12,7 @@ const sliderImages = [
   },
 ];
 
-const Slider = () => {
+const Slider: FC = () => {
   return (
     <div className="d-flex">
       <Carousel fade className="d-flex carousel-img-container">

@@ -71,3 +71,26 @@
   width: 80%;
   margin: 1rem auto;
 }
+
+.items-heading {
+  color: var(--shop-highlight-color);
+  font-weight: 700;
+}
+
+.items-txt-color {
+  color: var(--shop-items-txt-color);
+}
+
+.categories-filter-txt {
+  font-weight: 400;
+}
+
+.categories-filter li:hover {
+  font-weight: 200;
+  color: var(--shop-highlight-color);
+  cursor: pointer;
+}
+
+.cat-active {
+  color: var(--shop-gold-color);
+}
