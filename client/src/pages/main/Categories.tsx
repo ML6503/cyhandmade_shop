@@ -1,10 +1,4 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
-
-interface CategoryProps {
-  cat: string;
-  i: number;
-}
-
 interface CategoriesProps {
   name: string;
   items: string[];
