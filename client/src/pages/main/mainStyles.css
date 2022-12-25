@@ -96,5 +96,21 @@
 }
 
 .knife-icon {
-  left: 2vw;
+  left: 1vw;
+}
+
+@media only screen and (max-width: 1000px) {
+  .knife-icon {
+    left: 2vw;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .knife-icon {
+    left: 3vw;
+  }
+
+  .welcome-txt {
+    font-size: 2vw;
+  }
 }
