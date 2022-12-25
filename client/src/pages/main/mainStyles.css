@@ -94,3 +94,7 @@
 .cat-active {
   color: var(--shop-gold-color);
 }
+
+.knife-icon {
+  left: 2vw;
+}

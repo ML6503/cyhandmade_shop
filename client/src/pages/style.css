@@ -8,14 +8,12 @@
 
 :root {
   --nav-size: 55px;
-  /* --back-text-color: black; */
-  --shop-background-color: grey;
+  --shop-background-color: black;
   --shop-sign-color: #f2eecb;
   --shop-highlight-color: #a52c26;
   --shop-font: 'Anek Malayalam', sans-serif;
   --shop-gold-color: #b57f0c;
   --shop-items-txt-color: #fff;
-  /* --size: 10vw; */
 }
 
 .body {
