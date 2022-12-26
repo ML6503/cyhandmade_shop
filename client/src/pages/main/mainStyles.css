@@ -13,7 +13,7 @@
 }
 
 .carousel-img-container {
-  margin-top: calc(-1.35 * var(--nav-size));
+  /* margin-top: calc(-1.35 * var(--nav-size)); */
   margin-left: 0;
 
   width: 85% !important;

@@ -23,19 +23,19 @@ const NavBar: React.FC = observer(() => {
   const publicLinks: Array<ILink> = [
     {
       path: '/',
-      href: '#home',
+      // href: '#home',
       exact: true,
       text: 'Handmade Cyprus',
     },
     {
-      path: '/products',
-      href: '#products',
+      path: '/products#products',
+      // href: '#products',
       exact: true,
       text: 'Products',
     },
     {
-      path: '/contact',
-      href: '#contact',
+      path: '/contact#contact',
+      // href: '#contact',
       exact: true,
       text: 'Contacts',
     },
@@ -71,7 +71,7 @@ const NavBar: React.FC = observer(() => {
   let links = publicLinks.concat(additionalLinks);
 
   return (
-    <div className="mr-auto d-flex justify-content-between sticky-top">
+    <div className="mr-auto d-flex justify-content-between fixed-top w-100">
       <img src="./images/icon_13.png" className="img-fluid" />
 
       <LeftBrush />
