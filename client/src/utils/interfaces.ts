@@ -8,4 +8,5 @@ export interface IItem {
   name: string;
   price: number;
   img: string;
+  type: string;
 }

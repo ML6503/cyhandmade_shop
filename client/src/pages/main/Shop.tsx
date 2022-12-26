@@ -2,6 +2,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import Categories from './Categories';
 import { ShopContext } from 'index';
 import Filter from './Filter';
+import ProductsList from './ProductsList';
 
 const Shop: FC = () => {
   const appContext = useContext(ShopContext);
@@ -29,8 +30,7 @@ const Shop: FC = () => {
         </div>
 
         <div className="d-flex flex-wrap flex-grow-1 justify-content-around">
-          <div>Shop colm one</div>
-          <div>Shop colm two</div>
+          <ProductsList />
         </div>
       </div>
     </div>
