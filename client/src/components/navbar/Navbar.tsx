@@ -72,8 +72,9 @@ const NavBar: React.FC = observer(() => {
 
   return (
     <div className="mr-auto d-flex justify-content-between fixed-top w-100">
-      <img src="./images/icon_13.png" className="img-fluid" />
+      <img src="./images/icon_13.png" className="shop-icon img-fluid" />
 
+      {/* !! TODO burger menue max-width 500   */}
       <LeftBrush />
 
       <div>
