@@ -23,14 +23,16 @@ const Shop: FC = () => {
   return (
     <div id="products" className="text-capitalize">
       <h1 className="text-center items-heading">{categoryName}</h1>
-      <div className="d-flex  justify-content-around p-3 items-txt-color">
-        <div className="d-flex flex-column align-items-start justify-content-center ps-5 categories-filter-txt">
-          <Categories setCategoryName={setCategoryName} />
-          <Filter />
-        </div>
+      <div>
+        <div className="d-flex  position-sticky justify-content-around p-3 items-txt-color">
+          <div className="d-flex flex-column align-items-start justify-content-start ps-5 categories-filter-txt">
+            <Categories setCategoryName={setCategoryName} />
+            <Filter />
+          </div>
 
-        <div className="d-flex flex-wrap flex-grow-1 justify-content-around">
-          <ProductsList />
+          <div className="d-flex flex-wrap flex-grow-1 justify-content-around">
+            <ProductsList />
+          </div>
         </div>
       </div>
     </div>

@@ -14,12 +14,14 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
     <Card className="product-card bg-transparent mb-3">
       <Image src={item.img} className="product-img card-img-top " alt={item.name} />
       <div className="card-body">
-        <p>{item.name}</p>
-        <span className="d-flex align-content-center">
-          <EuroIcon />
-          <p className="p-2 m-0">{item.price}</p>
-        </span>
-        <Button className="btn btn-warning btn-sm">view product</Button>
+        <p className="mb-0">{item.name}</p>
+        <div className="product-card-border">
+          <span className="d-flex align-content-center">
+            <EuroIcon />
+            <p className="p-2 m-0">{item.price}</p>
+          </span>
+          <Button className="btn btn-warning btn-sm">view product</Button>
+        </div>
       </div>
     </Card>
     // </Col>
