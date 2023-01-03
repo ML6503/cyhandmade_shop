@@ -31,7 +31,9 @@ const Footer = () => {
           <Logo />
         </div>
       </div>
-      <div className="w-100">Footer</div>
+      <div className="w-100 lower-footer d-flex justify-content-end align-items-center">
+        2022 @ Handmade Cyprus
+      </div>
     </section>
   );
 };
