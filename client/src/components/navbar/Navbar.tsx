@@ -7,6 +7,7 @@ import { ShopContext } from 'index';
 import { ButtomPaint } from './ButtomPaint';
 import { LeftBrush } from './LeftBrush';
 import { PaintDrip } from './PaintDrip';
+import Logo from 'components/Logo';
 
 interface ILink {
   path: string;
@@ -72,9 +73,9 @@ const NavBar: React.FC = observer(() => {
 
   return (
     <div className="mr-auto d-flex justify-content-between fixed-top w-100">
-      <img src="./images/icon_13.png" className="shop-icon img-fluid" />
+      <Logo />
 
-      {/* !! TODO burger menue max-width 500   */}
+      {/* !! TODO burger menu max-width 500   */}
       <LeftBrush />
 
       <div>

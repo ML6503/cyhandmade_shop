@@ -57,7 +57,7 @@
 }
 
 .welcome-txt {
-  line-height: 1vw;
+  /* line-height: 1vw; */
 }
 
 .welcome-txt-world {
@@ -119,6 +119,7 @@
   cursor: pointer;
   /* width: 230px; */
   width: 25vw;
+  font-weight: normal;
 }
 
 @media only screen and (max-width: 768px) {

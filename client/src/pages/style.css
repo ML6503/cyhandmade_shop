@@ -16,9 +16,9 @@
   --shop-items-txt-color: #fff;
 }
 
-.body {
+body {
   background-color: var(--shop-background-color);
-  font-family: var(--shop-font);
+  font-family: var(--shop-font) !important;
   font-weight: bold;
 }
 
@@ -29,4 +29,8 @@ html {
 
 .app {
   overflow: hidden;
+}
+
+p {
+  margin: 0;
 }
