@@ -22,8 +22,8 @@ const Footer = () => {
             </div>
           </div>
           <div className="d-flex flex-column fw-normal navs-wrapper">
-            {footerNavs.map((nav) => (
-              <p>{nav}</p>
+            {footerNavs.map((nav, i) => (
+              <p key={i}>{nav}</p>
             ))}
           </div>
         </div>

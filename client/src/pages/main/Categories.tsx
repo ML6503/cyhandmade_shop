@@ -24,8 +24,7 @@ const Categories: FC<CategoriesProps> = observer(({ setCategoryName }) => {
       <h6 className="text-uppercase fw-bold">categories</h6>
       {items.types.map((cat, i) => {
         const catName: string = cat.name;
-        console.log('cat.id', cat.id);
-        console.log('selectedTypeId', items.selectedType.id);
+
         return (
           <li
             key={cat.id}
