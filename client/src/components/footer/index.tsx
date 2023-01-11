@@ -16,8 +16,15 @@ const Footer = () => {
               <p>+357 99 944 238</p>
               <p className="fw-normal">bavtra@yahoo.com</p>
               <span>
-                <FBIcon />
-                <WAppIcon />
+                <a href="https://www.facebook.com/handmadecyprusshop" target="_blank">
+                  <FBIcon />
+                </a>
+                <a
+                  href="https://wa.me/35799944238?text=I'm%20interested%20in%20your%20knife%20for%20sale"
+                  target="_blank"
+                >
+                  <WAppIcon />
+                </a>
               </span>
             </div>
           </div>
