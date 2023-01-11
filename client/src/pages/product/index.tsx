@@ -1,9 +1,16 @@
 import React from 'react';
+import { Button, Card, Col, Image } from 'react-bootstrap';
+import './productStyle.css';
 
 const Product = () => {
   return (
-    <section>
-      <h1>PRODUCT</h1>
+    <section className="one-product-section">
+      <span>
+        <h3 className="product-heading">Product description</h3>
+      </span>
+      <span className="one-product-img-wrapper">
+        <Image />
+      </span>
     </section>
   );
 };

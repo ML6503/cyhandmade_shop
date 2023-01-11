@@ -1,0 +1,11 @@
+.one-product-section {
+  height: 73vh;
+}
+
+.product-heading {
+  padding: 15vh;
+  color: var(--shop-items-txt-color);
+}
+
+.one-product-img-wrapper {
+}

@@ -8,7 +8,7 @@ const footerNavs: String[] = ['PRODUCTS', 'CARE', 'BASKET', 'ACCOUNT', 'PRIVACY 
 
 const Footer = () => {
   return (
-    <section className="container-fluid p-0">
+    <section className="container-fluid p-0 footer-container">
       <div className="d-flex justify-content-between align-items-center footer-wrapper px-5">
         <div className="d-flex justify-content-between contacts-navs-wrapper">
           <div className=" d-flex flex-column justify-content-around align-items-center">
