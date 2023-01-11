@@ -150,3 +150,12 @@
   width: 100%;
   border-right: 1px solid var(--shop-gold-color);
 }
+
+.product-btn {
+  background-color: var(--shop-gold-color);
+  border-color: var(--shop-gold-color);
+  border-radius: 30px;
+  width: 15vw;
+  text-transform: uppercase;
+  font-weight: 600;
+}

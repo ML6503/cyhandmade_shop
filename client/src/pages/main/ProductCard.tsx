@@ -20,7 +20,7 @@ const ProductCard: FC<ProductCardProps> = ({ item }) => {
             <EuroIcon />
             <p className="p-2 fs-4 m-0">{item.price}</p>
           </span>
-          <Button className="btn btn-warning btn-sm">view product</Button>
+          <Button className="product-btn btn btn-warning btn-sm">view product</Button>
         </div>
       </div>
     </Card>
