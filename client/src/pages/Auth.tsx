@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Card, Container, Form } from 'react-bootstrap';
 
 const Auth = () => {
   return (
-    <div>Auth</div>
-  )
+    <Container className="auth-container d-flex justify-content-center align-items-center ">
+      <Card>
+        <Form></Form>
+      </Card>
+    </Container>
+  );
 };
 
 export default Auth;
