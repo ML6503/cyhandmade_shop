@@ -6,7 +6,8 @@
 
 .footer-wrapper {
   background-color: var(--shop-highlight-color);
-  height: 20vh;
+  /* height: 20vh; */
+  padding: 2rem !important;
   font-size: 1rem;
 }
 
