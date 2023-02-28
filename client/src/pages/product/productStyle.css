@@ -3,9 +3,32 @@
 }
 
 .product-heading {
-  padding: 15vh;
+  padding-top: 12vh;
   color: var(--shop-items-txt-color);
 }
 
+.price {
+  color: var(--shop-items-txt-color);
+}
 .one-product-img-wrapper {
+  width: 100vw;
+  max-height: 40vh;
+}
+
+.one-product-img {
+  width: 100%;
+  height: 45vh;
+}
+
+.basket-btn {
+  border-radius: 5vw;
+  background-color: var(--shop-highlight-color);
+  border-color: var(--shop-highlight-color);
+  font-weight: 600;
+}
+
+.basket-btn:hover {
+  color: var(--shop-background-color);
+  background-color: var(--shop-highlight-color);
+  border-color: var(--shop-highlight-color);
 }
