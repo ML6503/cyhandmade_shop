@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="d-flex justify-content-between align-items-center footer-wrapper px-5">
         <div className="d-flex justify-content-between contacts-navs-wrapper">
           <div className=" d-flex flex-column justify-content-around align-items-center">
-            <div>
+            <div id="contact">
               <p>+357 99 944 238</p>
               <p className="fw-normal">bavtra@yahoo.com</p>
               <span>

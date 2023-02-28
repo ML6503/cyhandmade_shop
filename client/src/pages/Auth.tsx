@@ -5,8 +5,8 @@ import { LOGIN_ROUTE, PRIVACY_POLICY, REGISTRATION_ROUTE } from 'utils/constants
 
 const Auth = () => {
   const location = useLocation();
-  const isLogin = location.pathname !== `/${LOGIN_ROUTE}`;
-
+  const isLogin = location.pathname === `${LOGIN_ROUTE}`;
+  console.log('registr', REGISTRATION_ROUTE);
   return (
     <Container className="auth-container d-flex flex-column justify-content-center align-items-center ">
       <div className="auth-card-wrapper">
